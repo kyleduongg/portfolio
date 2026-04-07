@@ -104,3 +104,9 @@ h1 {
 .cv-page article h3 {
   font-size: 1.3em
 }
+
+.contact-info {
+  margin-top: 0.5em;
+  margin-bottom: 2em;
+  line-height: 1.4;
+}
