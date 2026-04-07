@@ -33,7 +33,7 @@ nav a.current {
 }
 
 html {
-  --color-accent: oklch(65% 50% 0);
+  --color-accent: oklch(70% 40% 220);
   accent-color: var(--color-accent);
 }
 
