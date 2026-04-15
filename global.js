@@ -33,16 +33,9 @@ for (let p of pages) {
     a.host === location.host && a.pathname === location.pathname
   );
 
-  a.toggleAttribute("target", a.host !== location.host);
+  if (a.host !== location.host) {
+    a.target = "_blank";
+  }
 
   nav.append(a);
 }
-
-
-const navLinks = $$("nav a");
-
-let currentLink = navLinks.find(
-  (a) => a.host === location.host && a.pathname === location.pathname,
-);
-
-currentLink?.classList.add('current');
