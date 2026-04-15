@@ -48,7 +48,14 @@ nav a:hover {
   background-color: color-mix(in oklch, var(--color-accent), canvas 85%);
 }
 
-input, textarea, button {
+label.color-scheme {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  font-size: 80%;
+}
+
+input, textarea, button, select {
   font: inherit;
 }
 
