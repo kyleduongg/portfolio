@@ -56,11 +56,25 @@ document.body.insertAdjacentHTML(
 
 const select = document.querySelector('select');
 
-select.addEventListener('input', function (event) {
-  console.log('color scheme changed to', event.target.value);
-
+function setColorScheme(colorScheme) {
   document.documentElement.style.setProperty(
     'color-scheme',
-    event.target.value
+    colorScheme
   );
+}
+
+select.addEventListener('input', function (event) {
+  const value = event.target.value;
+  console.log('color scheme changed to', event.target.value);
+
+  setColorScheme(value);
+  localStorage.colorScheme = value;
 });
+
+
+if ("colorScheme" in localStorage) {
+  const saved = localStorage.colorScheme;
+
+  setColorScheme(saved);
+  select.value = saved;
+}
