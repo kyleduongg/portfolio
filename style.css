@@ -50,9 +50,9 @@ nav a:hover {
 
 label.color-scheme {
   position: absolute;
-  top: 1rem;
-  right: 1rem;
-  font-size: 80%;
+  top: 0.8rem;
+  right: 0.8rem;
+  font-size: 75%;
 }
 
 input, textarea, button, select {
