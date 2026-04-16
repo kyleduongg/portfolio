@@ -34,9 +34,10 @@ nav a {
 }
 
 nav a.current {
+  font-weight: bold;
   border-bottom-width: 0.4em;
   border-bottom-style: solid;
-  border-bottom-color: oklch(50% 10% 200 / 40%);
+  border-bottom-color: oklch(80% 3% 200);
   padding-bottom: 0.1em;
 }
 
