@@ -97,17 +97,21 @@ export async function fetchJSON(url) {
     console.error('Error fetching or parsing JSON data:', error);
   }
 }
-
-export function renderProjects(project, containerElement, headingLevel = 'h2') {
+export function renderProjects(projects, containerElement, headingLevel = 'h2') {
   containerElement.innerHTML = '';
 
-  const article = document.createElement('article');
+  for (const project of projects) {
+    const article = document.createElement('article');
 
-  article.innerHTML = `
-    <${headingLevel}>${project.title}</${headingLevel}>
-    <img src="${project.image}" alt="${project.title}">
-    <p>${project.description}</p>
-  `;
+    article.innerHTML = `
+      <${headingLevel}>${project.title || 'Untitled Project'}</${headingLevel}>
+      ${project.image ? `<img src="${project.image}" alt="${project.title || 'Project image'}">` : ''}
+      <div class="project-info">
+        <p>${project.description || 'No description available.'}</p>
+        ${project.year ? `<p class="project-year"><em>c. ${project.year}</em></p>` : ''}
+      </div>
+    `;
 
-  containerElement.appendChild(article);
+    containerElement.appendChild(article);
+  }
 }
