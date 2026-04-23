@@ -147,3 +147,9 @@ h1 {
   grid-row: 2;
   margin: 0;
 }
+
+h2 {
+  font-size: 1.6rem;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+}
