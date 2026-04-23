@@ -1,3 +1,5 @@
+console.log("index.js is running");
+
 import { fetchJSON, renderProjects, fetchGithubData } from './global.js';
 
 const projects = await fetchJSON('./lib/projects.json');
