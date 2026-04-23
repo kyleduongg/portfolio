@@ -98,12 +98,13 @@ if ("colorScheme" in localStorage) {
   select.value = saved;
 }
 
-export function renderProjects(project, containerElement) {
+export function renderProjects(project, containerElement, headingLevel = 'h2') {
   containerElement.innerHTML = '';
+
   const article = document.createElement('article');
 
   article.innerHTML = `
-    <h3>${project.title}</h3>
+    <${headingLevel}>${project.title}</${headingLevel}>
     <img src="${project.image}" alt="${project.title}">
     <p>${project.description}</p>
 `;
