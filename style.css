@@ -158,3 +158,8 @@ h2 {
   justify-content: center;
   margin-top: 1rem;
 }
+
+.project-year {
+  font-family: Baskerville, serif;
+  font-variant-numeric: oldstyle-nums;
+}
