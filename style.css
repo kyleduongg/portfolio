@@ -200,3 +200,40 @@ h2 {
   align-items: center;
   gap: 2rem;
 }
+
+.searchBar {
+  display: block;
+  margin: 1.5rem auto;
+  padding: 0.5rem 1rem;
+  width: min(90%, 30rem);
+  border: 1px solid oklch(70% 0.05 200 / 40%);
+  border-radius: 0.5rem;
+  font: inherit;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+&:has(path:hover) {
+  path:not(:hover) {
+    opacity: 0.5;
+  }
+}
+
+path {
+  transition: 300ms;
+}
+
+.selected {
+  --color: oklch(60% 45% 0) !important;
+
+  &:is(path) {
+    fill: var(--color);
+  }
+}
+
+path {
+  cursor: pointer;
+}
+
+.legend li {
+  list-style-type: none;
+}
