@@ -62,7 +62,7 @@ function renderPieChart(projectsGiven) {
           renderProjects(projects, projectsContainer, 'h2');
         } else {
           const filteredProjects = projects.filter(
-            (project) => project.year === newData[selectedIndex].label
+            (project) => project.year === newData[selectedIndex].label 
           );
           renderProjects(filteredProjects, projectsContainer, 'h2');
         }
@@ -83,12 +83,10 @@ function renderPieChart(projectsGiven) {
 
         renderPieChart(projectsGiven);
 
-        
         d3.selectAll('path')
           .attr('fill', (_, idx) => selectedIndex === idx ? 'oklch(60% 45% 0)' : colors(idx))
           .classed('selected', (_, idx) => selectedIndex === idx);
 
-       
         d3.selectAll('.legend-item')
           .classed('selected', (_, idx) => selectedIndex === idx);
 
@@ -96,7 +94,7 @@ function renderPieChart(projectsGiven) {
           renderProjects(projects, projectsContainer, 'h2');
         } else {
           const filteredProjects = projects.filter(
-            (project) => project.year === newData[selectedIndex].label
+            (project) => project.year === newData[selectedIndex].label 
           );
           renderProjects(filteredProjects, projectsContainer, 'h2');
         }
