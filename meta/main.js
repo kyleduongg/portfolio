@@ -156,7 +156,7 @@ function renderScatterPlot(data, commits) {
   const rScale = d3
     .scaleSqrt()
     .domain([minLines, maxLines])
-    .range([2, 20]);
+    .range([2, 18]);
 
   const xAxis = d3.axisBottom(xScale);
 
@@ -187,10 +187,11 @@ function renderScatterPlot(data, commits) {
     .call(yAxis);
 
   const dots = svg.append('g').attr('class', 'dots');
+  const sortedCommits = d3.sort(commits, (d) => -d.totalLines);
 
   dots
     .selectAll('circle')
-    .data(commits)
+    .data(sortedCommits)
     .join('circle')
     .attr('cx', (d) => xScale(d.datetime))
     .attr('cy', (d) => yScale(d.hourFrac))
