@@ -151,6 +151,13 @@ function renderScatterPlot(data, commits) {
     .domain([0, 6, 12, 18, 24])
     .range(['#1e3a8a', '#60a5fa', '#f59e0b', '#fb923c', '#1e3a8a']);
 
+  const [minLines, maxLines] = d3.extent(commits, (d) => d.totalLines);
+
+  const rScale = d3
+    .scaleLinear()
+    .domain([minLines, maxLines])
+    .range([2, 20]);
+
   const xAxis = d3.axisBottom(xScale);
 
   const yAxis = d3
@@ -187,18 +194,20 @@ function renderScatterPlot(data, commits) {
     .join('circle')
     .attr('cx', (d) => xScale(d.datetime))
     .attr('cy', (d) => yScale(d.hourFrac))
-    .attr('r', 5)
+    .attr('r', (d) => rScale(d.totalLines))
     .attr('fill', (d) => colorScale(d.hourFrac))
+    .style('fill-opacity', 0.7)
     .on('mouseenter', (event, commit) => {
+      d3.select(event.currentTarget).style('fill-opacity', 1);
       renderTooltipContent(commit);
       updateTooltipVisibility(true);
       updateTooltipPosition(event);
     })
-    .on('mouseleave', () => {
+    .on('mouseleave', (event) => {
+      d3.select(event.currentTarget).style('fill-opacity', 0.7);
       updateTooltipVisibility(false);
     });
 }
-
 
 let data = await loadData();
 let commits = processCommits(data);
