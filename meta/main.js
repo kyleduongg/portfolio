@@ -43,7 +43,44 @@ function processCommits(data) {
     });
 }
 
+function renderCommitInfo(data, commits) {
+  const dl = d3.select('#stats').append('dl').attr('class', 'stats');
+
+  // Total LOC
+  dl.append('dt').html('Total <abbr title="Lines of code">LOC</abbr>');
+  dl.append('dd').text(data.length);
+
+  // Total commits
+  dl.append('dt').text('Total commits');
+  dl.append('dd').text(commits.length);
+
+  // Number of distinct values: number of files
+  dl.append('dt').text('Number of files');
+  dl.append('dd').text(d3.group(data, (d) => d.file).size);
+
+  // Grouped aggregate: average file length
+  const fileLengths = d3.rollups(
+    data,
+    (v) => d3.max(v, (d) => d.line),
+    (d) => d.file,
+  );
+
+  const averageFileLength = d3.mean(fileLengths, (d) => d[1]);
+
+  dl.append('dt').text('Average file length');
+  dl.append('dd').text(averageFileLength.toFixed(1));
+
+  // Aggregate over whole dataset: average line length
+  dl.append('dt').text('Average line length');
+  dl.append('dd').text(d3.mean(data, (d) => d.length).toFixed(1));
+
+  // Aggregate over whole dataset: maximum depth
+  dl.append('dt').text('Maximum depth');
+  dl.append('dd').text(d3.max(data, (d) => d.depth));
+}
+
+
 let data = await loadData();
 let commits = processCommits(data);
 
-console.log(commits);
+renderCommitInfo(data, commits);
