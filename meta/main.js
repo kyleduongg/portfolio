@@ -111,12 +111,17 @@ function renderScatterPlot(data, commits) {
     .domain([0, 24])
     .range([usableArea.bottom, usableArea.top]);
 
+  const colorScale = d3
+    .scaleLinear()
+    .domain([0, 6, 12, 18, 24])
+    .range(['#1e3a8a', '#60a5fa', '#f59e0b', '#fb923c', '#1e3a8a']);
+
   const xAxis = d3.axisBottom(xScale);
+
   const yAxis = d3
     .axisLeft(yScale)
     .tickFormat((d) => String(d % 24).padStart(2, '0') + ':00');
 
-  
   const gridlines = svg
     .append('g')
     .attr('class', 'gridlines')
@@ -148,7 +153,7 @@ function renderScatterPlot(data, commits) {
     .attr('cx', (d) => xScale(d.datetime))
     .attr('cy', (d) => yScale(d.hourFrac))
     .attr('r', 5)
-    .attr('fill', 'steelblue');
+    .attr('fill', (d) => colorScale(d.hourFrac));
 }
 
 
