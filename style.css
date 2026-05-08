@@ -265,3 +265,12 @@ path {
   line-height: 1;
   margin-top: 0.4rem;
 }
+
+.gridlines line {
+  stroke: currentColor;
+  stroke-opacity: 0.12;
+}
+
+.gridlines path {
+  display: none;
+}
