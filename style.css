@@ -240,17 +240,28 @@ path {
 
 .stats {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(10em, 1fr));
-  gap: 1em;
-  margin-block: 2em;
+  grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
+  gap: 1rem;
+  margin-block: 2rem;
+}
+
+.stats div,
+.stats dt,
+.stats dd {
+  margin: 0;
 }
 
 .stats dt {
-  font-weight: bold;
-  color: gray;
+  color: color-mix(in oklch, canvastext 55%, canvas);
+  font-size: 0.9rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
 }
 
 .stats dd {
-  margin: 0;
-  font-size: 2em;
+  font-size: 2.4rem;
+  font-weight: 700;
+  line-height: 1;
+  margin-top: 0.4rem;
 }
