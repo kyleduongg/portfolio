@@ -338,3 +338,26 @@ circle:hover {
 circle.selected {
   fill: #ff6b6b;
 }
+
+#language-breakdown {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
+  gap: 1rem 1.5rem;
+  margin-block: 1.25rem 2rem;
+}
+
+#language-breakdown dt {
+  margin: 0;
+  color: color-mix(in oklch, canvastext 60%, canvas);
+  font-size: 0.95rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+#language-breakdown dd {
+  margin: 0.25rem 0 0;
+  font-size: 1.25rem;
+  font-weight: 650;
+  line-height: 1.25;
+}
