@@ -112,7 +112,9 @@ function renderScatterPlot(data, commits) {
     .range([usableArea.bottom, usableArea.top]);
 
   const xAxis = d3.axisBottom(xScale);
-  const yAxis = d3.axisLeft(yScale);
+  const yAxis = d3
+    .axisLeft(yScale)
+    .tickFormat((d) => String(d % 24).padStart(2, '0') + ':00');
 
   svg
     .append('g')
