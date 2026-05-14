@@ -18,7 +18,7 @@
     "description": "Explore how pre-fight metrics can predict UFC outcomes!"
   },
   {
-    "title": "Bikewatching",
+    "title": "Bikewatching in Boston",
     "year": 2026,
     "image": "/images/bikewatching.jpg",
     "description": "An interactive Mapbox and D3 visualization of Bluebikes traffic in the Boston area, showing bike lanes, station traffic volume, time filtering, and arrival/departure flow.",
