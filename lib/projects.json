@@ -18,10 +18,11 @@
     "description": "Explore how pre-fight metrics can predict UFC outcomes!"
   },
   {
-    "title": "Eveniet, pariatur. Vero, quibusdam.",
-    "year": 2022,
-    "image": "https://vis-society.github.io/labs/2/images/empty.svg",
-    "description": "Fuga aspernatur accusamus maxime architecto? Iste delectus ad rerum! Sapiente dolores debitis, cum perferendis, quos rerum, alias dolor cumque provident aliquid facilis eveniet mollitia vel quasi numquam a. Debitis, suscipit!"
+    "title": "Bikewatching",
+    "year": 2026,
+    "image": "/images/bikewatching.jpg",
+    "description": "An interactive Mapbox and D3 visualization of Bluebikes traffic in the Boston area, showing bike lanes, station traffic volume, time filtering, and arrival/departure flow.",
+    "url": "https://kyleduongg.github.io/bikewatching/"
   },
   {
     "title": "Tenetur, vel eos? Incidunt.",

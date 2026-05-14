@@ -361,3 +361,10 @@ circle.selected {
   font-weight: 650;
   line-height: 1.25;
 }
+
+.projects article img {
+  width: 100%;
+  aspect-ratio: 16 / 8;
+  object-fit: cover;
+  display: block;
+}
