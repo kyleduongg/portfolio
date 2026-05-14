@@ -20,7 +20,7 @@
   {
     "title": "Bikewatching in Boston",
     "year": 2026,
-    "image": "bikewatching.jpg",
+    "image": "../images/bikewatching.jpg",
     "description": "An interactive Mapbox and D3 visualization of Bluebikes traffic in the Boston area, showing bike lanes, station traffic volume, time filtering, and arrival/departure flow.",
     "url": "https://kyleduongg.github.io/bikewatching/"
   },
