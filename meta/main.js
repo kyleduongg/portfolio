@@ -85,7 +85,7 @@ function renderCommitInfo(data, commits) {
 function renderTooltipContent(commit) {
   const link = document.getElementById('commit-link');
   const date = document.getElementById('commit-date');
-  const time = document.getElementById('commit-time');
+  const time = document.getElementById('commit-tooltip-time');
   const author = document.getElementById('commit-author');
   const lines = document.getElementById('commit-lines');
 
@@ -294,6 +294,34 @@ function renderScatterPlot(data, commits) {
 
 let data = await loadData();
 let commits = processCommits(data);
+
+let commitProgress = 100;
+
+let timeScale = d3
+  .scaleTime()
+  .domain([
+    d3.min(commits, (d) => d.datetime),
+    d3.max(commits, (d) => d.datetime),
+  ])
+  .range([0, 100]);
+
+let commitMaxTime = timeScale.invert(commitProgress);
+
+const commitSlider = document.getElementById('commit-progress');
+const commitTime = document.getElementById('commit-progress-time');
+
+function onTimeSliderChange() {
+  commitProgress = Number(commitSlider.value);
+  commitMaxTime = timeScale.invert(commitProgress);
+
+  commitTime.textContent = commitMaxTime.toLocaleString('en', {
+    dateStyle: 'long',
+    timeStyle: 'short',
+  });
+}
+
+commitSlider.addEventListener('input', onTimeSliderChange);
+onTimeSliderChange();
 
 renderCommitInfo(data, commits);
 renderScatterPlot(data, commits);

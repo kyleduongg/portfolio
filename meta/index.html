@@ -17,6 +17,14 @@
 
   <div id="stats"></div>
 
+  <div class="commit-filter">
+    <label>
+      Show commits until:
+      <input id="commit-progress" type="range" min="0" max="100" value="100" />
+      <time id="commit-progress-time"></time>
+    </label>
+  </div>
+
   <h2>Commits by time of day</h2>
   <div id="chart"></div>
   <p id="selection-count">No commits selected</p>
@@ -32,7 +40,7 @@
     <dd id="commit-date"></dd>
 
     <dt>Time</dt>
-    <dd id="commit-time"></dd>
+    <dd id="commit-tooltip-time"></dd>
 
     <dt>Author</dt>
     <dd id="commit-author"></dd>
