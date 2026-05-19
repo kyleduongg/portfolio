@@ -49,19 +49,15 @@ function processCommits(data) {
 function renderCommitInfo(data, commits) {
   const dl = d3.select('#stats').append('dl').attr('class', 'stats');
 
-  // Total LOC
   dl.append('dt').html('Total <abbr title="Lines of code">LOC</abbr>');
   dl.append('dd').text(data.length);
 
-  // Total commits
   dl.append('dt').text('Total commits');
   dl.append('dd').text(commits.length);
 
-  // Number of distinct values: number of files
   dl.append('dt').text('Number of files');
   dl.append('dd').text(d3.group(data, (d) => d.file).size);
 
-  // Grouped aggregate: average file length
   const fileLengths = d3.rollups(
     data,
     (v) => d3.max(v, (d) => d.line),
@@ -73,11 +69,9 @@ function renderCommitInfo(data, commits) {
   dl.append('dt').text('Average file length');
   dl.append('dd').text(averageFileLength.toFixed(1));
 
-  // Aggregate over whole dataset: average line length
   dl.append('dt').text('Average line length');
   dl.append('dd').text(d3.mean(data, (d) => d.length).toFixed(1));
 
-  // Aggregate over whole dataset: maximum depth
   dl.append('dt').text('Maximum depth');
   dl.append('dd').text(d3.max(data, (d) => d.depth));
 }
@@ -259,11 +253,13 @@ function renderScatterPlot(data, commits) {
   svg
     .append('g')
     .attr('transform', `translate(0, ${usableArea.bottom})`)
+    .attr('class', 'x-axis')
     .call(xAxis);
 
   svg
     .append('g')
     .attr('transform', `translate(${usableArea.left}, 0)`)
+    .attr('class', 'y-axis')
     .call(yAxis);
 
   const dots = svg.append('g').attr('class', 'dots');
@@ -271,7 +267,7 @@ function renderScatterPlot(data, commits) {
 
   dots
     .selectAll('circle')
-    .data(sortedCommits)
+    .data(sortedCommits, (d) => d.id)
     .join('circle')
     .attr('cx', (d) => xScale(d.datetime))
     .attr('cy', (d) => yScale(d.hourFrac))
@@ -292,8 +288,70 @@ function renderScatterPlot(data, commits) {
   createBrushSelector(svg);
 }
 
+function updateScatterPlot(data, commits) {
+  const width = 1000;
+  const height = 600;
+
+  const margin = { top: 10, right: 10, bottom: 30, left: 20 };
+
+  const usableArea = {
+    top: margin.top,
+    right: width - margin.right,
+    bottom: height - margin.bottom,
+    left: margin.left,
+    width: width - margin.left - margin.right,
+    height: height - margin.top - margin.bottom,
+  };
+
+  const svg = d3.select('#chart').select('svg');
+
+  xScale = xScale.domain(d3.extent(commits, (d) => d.datetime));
+
+  const colorScale = d3
+    .scaleLinear()
+    .domain([0, 6, 12, 18, 24])
+    .range(['#1e3a8a', '#60a5fa', '#f59e0b', '#fb923c', '#1e3a8a']);
+
+  const [minLines, maxLines] = d3.extent(commits, (d) => d.totalLines);
+
+  const rScale = d3
+    .scaleSqrt()
+    .domain([minLines, maxLines])
+    .range([2, 18]);
+
+  const xAxis = d3.axisBottom(xScale);
+
+  const xAxisGroup = svg.select('g.x-axis');
+  xAxisGroup.selectAll('*').remove();
+  xAxisGroup.call(xAxis);
+
+  const dots = svg.select('g.dots');
+  const sortedCommits = d3.sort(commits, (d) => -d.totalLines);
+
+  dots
+    .selectAll('circle')
+    .data(sortedCommits, (d) => d.id)
+    .join('circle')
+    .attr('cx', (d) => xScale(d.datetime))
+    .attr('cy', (d) => yScale(d.hourFrac))
+    .attr('r', (d) => rScale(d.totalLines))
+    .attr('fill', (d) => colorScale(d.hourFrac))
+    .style('fill-opacity', 0.7)
+    .on('mouseenter', (event, commit) => {
+      d3.select(event.currentTarget).style('fill-opacity', 1);
+      renderTooltipContent(commit);
+      updateTooltipVisibility(true);
+      updateTooltipPosition(event);
+    })
+    .on('mouseleave', (event) => {
+      d3.select(event.currentTarget).style('fill-opacity', 0.7);
+      updateTooltipVisibility(false);
+    });
+}
+
 let data = await loadData();
 let commits = processCommits(data);
+let filteredCommits = commits;
 
 let commitProgress = 100;
 
@@ -318,10 +376,14 @@ function onTimeSliderChange() {
     dateStyle: 'long',
     timeStyle: 'short',
   });
-}
 
-commitSlider.addEventListener('input', onTimeSliderChange);
-onTimeSliderChange();
+  filteredCommits = commits.filter((d) => d.datetime <= commitMaxTime);
+
+  updateScatterPlot(data, filteredCommits);
+}
 
 renderCommitInfo(data, commits);
 renderScatterPlot(data, commits);
+
+commitSlider.addEventListener('input', onTimeSliderChange);
+onTimeSliderChange();
