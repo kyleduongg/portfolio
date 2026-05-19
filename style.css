@@ -471,7 +471,7 @@ circle.selected {
 }
 
 #scatter-plot {
-  flex: 1.5;
+  flex: 1.3;
   position: sticky;
   top: 1rem;
   align-self: flex-start;
