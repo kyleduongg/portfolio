@@ -451,3 +451,39 @@ circle.selected {
   border-radius: 50%;
 }
 
+#scrolly-1 {
+  position: relative;
+  display: flex;
+  gap: 2rem;
+  align-items: flex-start;
+}
+
+#scrolly-1 {
+  position: relative;
+  display: flex;
+  gap: 2rem;
+  align-items: flex-start;
+}
+
+#scatter-story {
+  flex: 0.8;
+  position: relative;
+}
+
+#scatter-plot {
+  flex: 1.5;
+  position: sticky;
+  top: 1rem;
+  align-self: flex-start;
+  min-height: 50vh;
+  height: auto;
+}
+
+#chart svg {
+  max-width: 100%;
+  height: auto;
+}
+
+#files {
+  margin-top: 3rem;
+}
