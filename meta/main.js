@@ -365,12 +365,15 @@ function updateFileDisplay(filteredCommits) {
     .selectAll('div')
     .data((d) => d.lines)
     .join('div')
-    .attr('class', 'loc');
+    .attr('class', 'loc')
+    .attr('style', (d) => `--color: ${colors(d.type)}`);
 }
 
 let data = await loadData();
 let commits = processCommits(data);
 let filteredCommits = commits;
+
+let colors = d3.scaleOrdinal(d3.schemeTableau10);
 
 let commitProgress = 100;
 
