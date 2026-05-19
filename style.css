@@ -58,7 +58,10 @@ label.color-scheme {
   font-size: 75%;
 }
 
-input, textarea, button, select {
+input,
+textarea,
+button,
+select {
   font: inherit;
 }
 
@@ -78,7 +81,7 @@ button {
   grid-column: 1 / -1;
 }
 
-.projects{
+.projects {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(15em, 1fr));
   gap: 1em;
@@ -95,7 +98,12 @@ button {
   margin: 0;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   line-height: 1.1;
   text-wrap: balance;
   margin: 0;
@@ -118,7 +126,7 @@ h1 {
 }
 
 .cv-page article h3 {
-  font-size: 1.3em
+  font-size: 1.3em;
 }
 
 .contact-info {
@@ -315,6 +323,10 @@ circle {
   transition: 200ms;
   transform-origin: center;
   transform-box: fill-box;
+
+  @starting-style {
+    r: 0;
+  }
 }
 
 circle:hover {
