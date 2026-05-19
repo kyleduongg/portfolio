@@ -289,20 +289,6 @@ function renderScatterPlot(data, commits) {
 }
 
 function updateScatterPlot(data, commits) {
-  const width = 1000;
-  const height = 600;
-
-  const margin = { top: 10, right: 10, bottom: 30, left: 20 };
-
-  const usableArea = {
-    top: margin.top,
-    right: width - margin.right,
-    bottom: height - margin.bottom,
-    left: margin.left,
-    width: width - margin.left - margin.right,
-    height: height - margin.top - margin.bottom,
-  };
-
   const svg = d3.select('#chart').select('svg');
 
   xScale = xScale.domain(d3.extent(commits, (d) => d.datetime));
@@ -349,6 +335,30 @@ function updateScatterPlot(data, commits) {
     });
 }
 
+function updateFileDisplay(filteredCommits) {
+  let lines = filteredCommits.flatMap((d) => d.lines);
+
+  let files = d3
+    .groups(lines, (d) => d.file)
+    .map(([name, lines]) => {
+      return { name, lines };
+    });
+
+  let filesContainer = d3
+    .select('#files')
+    .selectAll('div')
+    .data(files, (d) => d.name)
+    .join((enter) =>
+      enter.append('div').call((div) => {
+        div.append('dt').append('code');
+        div.append('dd');
+      }),
+    );
+
+  filesContainer.select('dt > code').text((d) => d.name);
+  filesContainer.select('dd').text((d) => `${d.lines.length} lines`);
+}
+
 let data = await loadData();
 let commits = processCommits(data);
 let filteredCommits = commits;
@@ -380,10 +390,12 @@ function onTimeSliderChange() {
   filteredCommits = commits.filter((d) => d.datetime <= commitMaxTime);
 
   updateScatterPlot(data, filteredCommits);
+  updateFileDisplay(filteredCommits);
 }
 
 renderCommitInfo(data, commits);
 renderScatterPlot(data, commits);
+updateFileDisplay(filteredCommits);
 
 commitSlider.addEventListener('input', onTimeSliderChange);
 onTimeSliderChange();
